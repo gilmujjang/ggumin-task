@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './styled';
 
+function numAddComma(num: number) {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function percentageMaker(originalPrice: number, discountPrice: number) {
+  return (((originalPrice - discountPrice) * 100) / originalPrice).toFixed(0);
+}
+
 function App() {
   const [api, setApi] = useState<any>(null);
   const [state, setState] = useState<number | null>(null);
@@ -32,6 +40,10 @@ function App() {
     }
   };
 
+  const onClickTooltip = (id: number) => {
+    window.location.href = `https://www.ggumim.co.kr/furniture/view/${id}`;
+  };
+
   console.log(api);
 
   if (api === null) {
@@ -50,45 +62,82 @@ function App() {
             pointX: number;
             pointY: number;
             productName: string;
+            imageUrl: string;
+            priceDiscount: number;
+            priceOriginal: number;
           }) => {
+            const {
+              productId,
+              pointX,
+              pointY,
+              productName,
+              imageUrl,
+              priceDiscount,
+              priceOriginal,
+            } = product;
+
             if (state === product.productId) {
               return (
                 <S.ProductClickIcon
-                  key={product.productId}
-                  pointX={product.pointX}
-                  pointY={product.pointY}
+                  key={productId}
+                  pointX={pointX}
+                  pointY={pointY}
                 >
-                  <S.Magnify
+                  <img
+                    width="32px"
                     src="//cdn.ggumim.co.kr/storage/20211029145330GwwumnWNSs.png"
-                    alt={product.productName}
+                    alt={productName}
                     onClick={() => {
-                      ToggleTag(product.productId);
+                      ToggleTag(productId);
                     }}
                   />
-                  <span>
-                    <div></div>
-                    <div>{product.productName}</div>
+                  <S.ProductInfoBox
+                    onClick={() => {
+                      onClickTooltip(productId);
+                    }}
+                  >
+                    <img src={imageUrl} alt={productName} width="70px"></img>
+                    <S.ProductInfo>
+                      <div>{productName}</div>
+                      <S.PriceBox>
+                        {priceOriginal === priceDiscount ? (
+                          <>
+                            <span>예상가</span>
+                            <span>{numAddComma(priceOriginal)}</span>
+                          </>
+                        ) : (
+                          <>
+                            <span>
+                              {percentageMaker(priceOriginal, priceDiscount)}%
+                            </span>
+                            <span>{numAddComma(priceDiscount)}</span>
+                          </>
+                        )}
+                      </S.PriceBox>
+                    </S.ProductInfo>
                     <div>
                       <img
                         src="//cdn.ggumim.co.kr/storage/20211102181936xqHzyWAmb8.png"
                         alt="상품보기"
-                      ></img>
+                        width="20px"
+                      />
                     </div>
-                  </span>
+                  </S.ProductInfoBox>
                 </S.ProductClickIcon>
               );
             } else {
               return (
                 <S.ProductClickIcon
-                  key={product.productId}
-                  pointX={product.pointX}
-                  pointY={product.pointY}
+                  key={productId}
+                  pointX={pointX}
+                  pointY={pointY}
                 >
-                  <S.Magnify
+                  <img
+                    width="32px"
                     src="//cdn.ggumim.co.kr/storage/20211029145238AlZrQ41xtg.png"
-                    alt={product.productName}
+                    alt={productName}
                     onClick={() => {
-                      ToggleTag(product.productId);
+                      ToggleTag(productId);
                     }}
                   />
                 </S.ProductClickIcon>

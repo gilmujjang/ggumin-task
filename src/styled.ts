@@ -21,11 +21,28 @@ export const ProductClickIcon = styled.div<{ pointX: number; pointY: number }>`
   position: absolute;
   left: ${(props) => 1.7 * props.pointY}px;
   top: ${(props) => 1.6 * props.pointX}px;
+  cursor: pointer;
 `;
 
-export const Magnify = styled.img`
-  width: 32px;
-  height: 32px;
+export const ProductInfoBox = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
+export const ProductInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  overflow: hidden;
+  text-align: left;
+`;
+
+export const PriceBox = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
 `;
 
 export const CarouselBox = styled.div`
@@ -37,4 +54,5 @@ export const ProductImage = styled.div<{ productUrl: string }>`
   width: 106px;
   height: 106px;
   margin: 28px 6px;
+  cursor: pointer;
 `;

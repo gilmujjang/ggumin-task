@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import * as S from '../styled';
+import * as S from './ImageStyled';
 
 function numAddComma(num: number) {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');

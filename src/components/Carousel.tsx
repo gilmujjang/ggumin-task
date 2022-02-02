@@ -1,5 +1,5 @@
 import React from 'react';
-import * as S from '../styled';
+import * as S from './CarouselStyled';
 
 function Carousel(props: any) {
   const { api } = props;

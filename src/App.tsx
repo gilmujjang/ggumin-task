@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import * as S from './styled';
 
 function numAddComma(num: number) {
@@ -12,7 +12,8 @@ function percentageMaker(originalPrice: number, discountPrice: number) {
 function App() {
   const [api, setApi] = useState<any>(null);
   const [state, setState] = useState<number | null>(null);
-
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
   async function GetJsonData(address: string) {
     const data = await fetch(address, { mode: 'cors' })
       .then(function (response) {
@@ -24,6 +25,23 @@ function App() {
     setApi(data);
   }
 
+  function useOutsideAlerter(ref: any) {
+    useEffect(() => {
+      function handleClickOutside(event: any) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setState(null);
+        }
+      }
+
+      // Bind the event listener
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [ref]);
+  }
+
   useEffect(() => {
     if (api === null) {
       console.log('api를 호출합니다');
@@ -33,6 +51,7 @@ function App() {
   });
 
   const ToggleTag = (key: number) => {
+    console.log(key);
     if (key === state) {
       setState(null);
     } else {
@@ -55,7 +74,7 @@ function App() {
   return (
     <S.App className="App">
       <S.ImageBox>
-        <S.Picture src={api.imageUrl}></S.Picture>
+        <S.Picture src={api.imageUrl} />
         {productList.map(
           (product: {
             productId: number;
@@ -76,12 +95,13 @@ function App() {
               priceOriginal,
             } = product;
 
-            if (state === product.productId) {
+            if (state === productId) {
               return (
                 <S.ProductClickIcon
                   key={productId}
                   pointX={pointX}
                   pointY={pointY}
+                  ref={wrapperRef}
                 >
                   <img
                     width="32px"
@@ -96,32 +116,32 @@ function App() {
                       onClickTooltip(productId);
                     }}
                   >
-                    <img src={imageUrl} alt={productName} width="70px"></img>
+                    <S.ProductInfoImage productUrl={imageUrl} />
                     <S.ProductInfo>
-                      <div>{productName}</div>
+                      <S.ProductInfoName>{productName}</S.ProductInfoName>
                       <S.PriceBox>
                         {priceOriginal === priceDiscount ? (
                           <>
-                            <span>예상가</span>
-                            <span>{numAddComma(priceOriginal)}</span>
+                            <S.ExpectPrice>예상가</S.ExpectPrice>
+                            <S.Price>{numAddComma(priceOriginal)}</S.Price>
                           </>
                         ) : (
                           <>
-                            <span>
+                            <S.DiscountRate>
                               {percentageMaker(priceOriginal, priceDiscount)}%
-                            </span>
-                            <span>{numAddComma(priceDiscount)}</span>
+                            </S.DiscountRate>
+                            <S.Price>{numAddComma(priceDiscount)}</S.Price>
                           </>
                         )}
                       </S.PriceBox>
                     </S.ProductInfo>
-                    <div>
+                    <S.ArrowBox>
                       <img
                         src="//cdn.ggumim.co.kr/storage/20211102181936xqHzyWAmb8.png"
                         alt="상품보기"
                         width="20px"
                       />
-                    </div>
+                    </S.ArrowBox>
                   </S.ProductInfoBox>
                 </S.ProductClickIcon>
               );

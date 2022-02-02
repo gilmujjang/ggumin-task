@@ -3,6 +3,7 @@ import * as S from './styled';
 
 function App() {
   const [api, setApi] = useState<any>(null);
+  const [state, setState] = useState<number | null>(null);
 
   async function GetJsonData(address: string) {
     const data = await fetch(address, { mode: 'cors' })
@@ -23,6 +24,14 @@ function App() {
     }
   });
 
+  const ToggleTag = (key: number) => {
+    if (key === state) {
+      setState(null);
+    } else {
+      setState(key);
+    }
+  };
+
   console.log(api);
 
   if (api === null) {
@@ -42,18 +51,49 @@ function App() {
             pointY: number;
             productName: string;
           }) => {
-            return (
-              <S.ProductClick
-                key={product.productId}
-                pointX={product.pointX}
-                pointY={product.pointY}
-              >
-                <S.Magnify
-                  src="//cdn.ggumim.co.kr/storage/20211029145238AlZrQ41xtg.png"
-                  alt={product.productName}
-                ></S.Magnify>
-              </S.ProductClick>
-            );
+            if (state === product.productId) {
+              return (
+                <S.ProductClickIcon
+                  key={product.productId}
+                  pointX={product.pointX}
+                  pointY={product.pointY}
+                >
+                  <S.Magnify
+                    src="//cdn.ggumim.co.kr/storage/20211029145330GwwumnWNSs.png"
+                    alt={product.productName}
+                    onClick={() => {
+                      ToggleTag(product.productId);
+                    }}
+                  />
+                  <span>
+                    <div></div>
+                    <div>{product.productName}</div>
+                    <div>
+                      <img
+                        src="//cdn.ggumim.co.kr/storage/20211102181936xqHzyWAmb8.png"
+                        alt="상품보기"
+                      ></img>
+                    </div>
+                  </span>
+                </S.ProductClickIcon>
+              );
+            } else {
+              return (
+                <S.ProductClickIcon
+                  key={product.productId}
+                  pointX={product.pointX}
+                  pointY={product.pointY}
+                >
+                  <S.Magnify
+                    src="//cdn.ggumim.co.kr/storage/20211029145238AlZrQ41xtg.png"
+                    alt={product.productName}
+                    onClick={() => {
+                      ToggleTag(product.productId);
+                    }}
+                  />
+                </S.ProductClickIcon>
+              );
+            }
           },
         )}
       </S.ImageBox>

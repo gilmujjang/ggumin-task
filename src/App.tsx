@@ -35,6 +35,27 @@ function App() {
     <S.App className="App">
       <S.ImageBox>
         <S.Picture src={api.imageUrl}></S.Picture>
+        {productList.map(
+          (product: {
+            productId: number;
+            pointX: number;
+            pointY: number;
+            productName: string;
+          }) => {
+            return (
+              <S.ProductClick
+                key={product.productId}
+                pointX={product.pointX}
+                pointY={product.pointY}
+              >
+                <S.Magnify
+                  src="//cdn.ggumim.co.kr/storage/20211029145238AlZrQ41xtg.png"
+                  alt={product.productName}
+                ></S.Magnify>
+              </S.ProductClick>
+            );
+          },
+        )}
       </S.ImageBox>
       <S.CarouselBox>
         {productList.map((product: { productId: number; imageUrl: string }) => {

@@ -9,10 +9,23 @@ export const App = styled.div`
   align-items: center;
 `;
 
-export const ImageBox = styled.div``;
+export const ImageBox = styled.div`
+  position: relative;
+`;
 
 export const Picture = styled.img`
   width: 100%;
+`;
+
+export const ProductClick = styled.div<{ pointX: number; pointY: number }>`
+  position: absolute;
+  left: ${(props) => 1.7 * props.pointY}px;
+  top: ${(props) => 1.6 * props.pointX}px;
+`;
+
+export const Magnify = styled.img`
+  width: 32px;
+  height: 32px;
 `;
 
 export const CarouselBox = styled.div`

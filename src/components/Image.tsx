@@ -24,6 +24,41 @@ function useOutsideAlerter(ref: any, setState: any) {
   }, [ref, setState]);
 }
 
+const ProductInformationBox = (props: any) => {
+  const { imageUrl, productName, priceOriginal, priceDiscount } = props;
+
+  return (
+    <>
+      <S.ProductInfoImage productUrl={imageUrl} />
+      <S.ProductInfo>
+        <S.ProductInfoName>{productName}</S.ProductInfoName>
+        <S.PriceBox>
+          {priceOriginal === priceDiscount ? (
+            <>
+              <S.ExpectPrice>예상가</S.ExpectPrice>
+              <S.Price>{numAddComma(priceOriginal)}</S.Price>
+            </>
+          ) : (
+            <>
+              <S.DiscountRate>
+                {percentageMaker(priceOriginal, priceDiscount)}%
+              </S.DiscountRate>
+              <S.Price>{numAddComma(priceDiscount)}</S.Price>
+            </>
+          )}
+        </S.PriceBox>
+      </S.ProductInfo>
+      <S.ArrowBox>
+        <img
+          src="//cdn.ggumim.co.kr/storage/20211102181936xqHzyWAmb8.png"
+          alt="상품보기"
+          width="20px"
+        />
+      </S.ArrowBox>
+    </>
+  );
+};
+
 function Image(props: any) {
   const { state, setState, api } = props;
   const wrapperRef = useRef(null);
@@ -70,38 +105,81 @@ function Image(props: any) {
             ToggleTag(productId);
           }}
         />
-        <S.ProductInfoBox
-          onClick={() => {
-            onClickTooltip(productId);
-          }}
-        >
-          <S.ProductInfoImage productUrl={imageUrl} />
-          <S.ProductInfo>
-            <S.ProductInfoName>{productName}</S.ProductInfoName>
-            <S.PriceBox>
-              {priceOriginal === priceDiscount ? (
-                <>
-                  <S.ExpectPrice>예상가</S.ExpectPrice>
-                  <S.Price>{numAddComma(priceOriginal)}</S.Price>
-                </>
-              ) : (
-                <>
-                  <S.DiscountRate>
-                    {percentageMaker(priceOriginal, priceDiscount)}%
-                  </S.DiscountRate>
-                  <S.Price>{numAddComma(priceDiscount)}</S.Price>
-                </>
-              )}
-            </S.PriceBox>
-          </S.ProductInfo>
-          <S.ArrowBox>
-            <img
-              src="//cdn.ggumim.co.kr/storage/20211102181936xqHzyWAmb8.png"
-              alt="상품보기"
-              width="20px"
-            />
-          </S.ArrowBox>
-        </S.ProductInfoBox>
+        {pointX > 250 ? (
+          pointY > 250 ? (
+            <>
+              <S.RightBottomTri />
+              <S.RightBottom
+                pointX={pointX}
+                pointY={pointY}
+                onClick={() => {
+                  onClickTooltip(productId);
+                }}
+              >
+                <ProductInformationBox
+                  imageUrl={imageUrl}
+                  productName={productName}
+                  priceOriginal={priceOriginal}
+                  priceDiscount={priceDiscount}
+                />
+              </S.RightBottom>
+            </>
+          ) : (
+            <>
+              <S.LeftBottomTri />
+              <S.LeftBottom
+                pointX={pointX}
+                pointY={pointY}
+                onClick={() => {
+                  onClickTooltip(productId);
+                }}
+              >
+                <ProductInformationBox
+                  imageUrl={imageUrl}
+                  productName={productName}
+                  priceOriginal={priceOriginal}
+                  priceDiscount={priceDiscount}
+                />
+              </S.LeftBottom>
+            </>
+          )
+        ) : pointY > 250 ? (
+          <>
+            <S.RightTopTri />
+            <S.RightTop
+              pointX={pointX}
+              pointY={pointY}
+              onClick={() => {
+                onClickTooltip(productId);
+              }}
+            >
+              <ProductInformationBox
+                imageUrl={imageUrl}
+                productName={productName}
+                priceOriginal={priceOriginal}
+                priceDiscount={priceDiscount}
+              />
+            </S.RightTop>
+          </>
+        ) : (
+          <>
+            <S.LeftTopTri />
+            <S.LeftTop
+              pointX={pointX}
+              pointY={pointY}
+              onClick={() => {
+                onClickTooltip(productId);
+              }}
+            >
+              <ProductInformationBox
+                imageUrl={imageUrl}
+                productName={productName}
+                priceOriginal={priceOriginal}
+                priceDiscount={priceDiscount}
+              />
+            </S.LeftTop>
+          </>
+        )}
       </S.ProductClickIcon>
     );
   };

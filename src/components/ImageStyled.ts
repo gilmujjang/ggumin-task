@@ -10,25 +10,104 @@ export const Picture = styled.img`
 
 export const ProductClickIcon = styled.div<{ pointX: number; pointY: number }>`
   position: absolute;
-  left: ${(props) => 1.7 * props.pointY}px;
+  left: ${(props) => 1.65 * props.pointY}px;
   top: ${(props) => 1.6 * props.pointX}px;
   cursor: pointer;
 `;
 
-export const ProductInfoBox = styled.span`
+export const ProductInfoBox = styled.span<{ pointX: number; pointY: number }>`
+  z-index: 1;
   display: flex;
   align-items: center;
   background-color: #ffffff;
   width: 220px;
   padding: 8px 0 8px 8px;
-  margin-top: 16px;
   border-radius: 7px;
-  box-shadow: 3px 3px 8px 0 rgb(0 0 0 / 20%);
   font-size: 14px;
   color: #4a4a4a;
+  box-shadow: 3px 3px 8px 0 rgb(0 0 0 / 20%);
+`;
+
+export const LeftTop = styled(ProductInfoBox)`
+  margin-top: 16px;
   position: absolute;
   top: 28px;
   left: -20px;
+`;
+
+export const LeftTopTri = styled.span`
+  content: '';
+  position: absolute;
+  top: 36px;
+  left: 10px;
+  width: 12px;
+  height: 8px;
+  background-image: url(//cdn.ggumim.co.kr/storage/20211118152728RO3OXnhkrC.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 1100;
+`;
+
+export const RightTop = styled(ProductInfoBox)`
+  margin-top: 16px;
+  position: absolute;
+  top: 28px;
+  right: -20px;
+`;
+
+export const RightTopTri = styled.span`
+  content: '';
+  position: absolute;
+  top: 36px;
+  right: 10px;
+  width: 12px;
+  height: 8px;
+  background-image: url(//cdn.ggumim.co.kr/storage/20211118152728RO3OXnhkrC.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 1100;
+`;
+
+export const LeftBottom = styled(ProductInfoBox)`
+  margin-bottom: 16px;
+  position: absolute;
+  bottom: 28px;
+  left: -20px;
+`;
+
+export const LeftBottomTri = styled.span`
+  content: '';
+  position: absolute;
+  bottom: 36px;
+  left: 10px;
+  width: 12px;
+  height: 8px;
+  background-image: url(https://cdn.ggumim.co.kr/storage/20211118152728RO3OXnhkrC.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 1100;
+  transform: rotate(180deg);
+`;
+
+export const RightBottom = styled(ProductInfoBox)`
+  margin-bottom: 16px;
+  position: absolute;
+  bottom: 28px;
+  right: -20px;
+`;
+
+export const RightBottomTri = styled.span`
+  content: '';
+  position: absolute;
+  bottom: 36px;
+  right: 10px;
+  width: 12px;
+  height: 8px;
+  background-image: url(https://cdn.ggumim.co.kr/storage/20211118152728RO3OXnhkrC.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 1100;
+  transform: rotate(180deg);
 `;
 
 export const ProductInfoImage = styled.div<{ productUrl: string }>`

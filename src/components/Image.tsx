@@ -2,11 +2,11 @@ import React, { useRef, useEffect } from 'react';
 import { numAddComma, percentageMaker } from './utils';
 import * as S from './ImageStyled';
 
-function useOutsideAlerter(ref: any, ToggleTag: any) {
+function useOutsideAlerter(ref: any, onClick: any) {
   useEffect(() => {
     function handleClickOutside(event: any) {
       if (ref.current && !ref.current.contains(event.target)) {
-        ToggleTag(null);
+        onClick(null);
       }
     }
 
@@ -14,7 +14,7 @@ function useOutsideAlerter(ref: any, ToggleTag: any) {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [ref, ToggleTag]);
+  }, [ref, onClick]);
 }
 
 const ProductInformationBox = (props: any) => {
@@ -53,9 +53,9 @@ const ProductInformationBox = (props: any) => {
 };
 
 function Image(props: any) {
-  const { state, ToggleTag, api } = props;
+  const { state, onClick, api } = props;
   const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef, ToggleTag);
+  useOutsideAlerter(wrapperRef, onClick);
 
   const onClickTooltip = (id: number) => {
     window.location.href = `https://www.ggumim.co.kr/furniture/view/${id}`;
@@ -72,6 +72,7 @@ function Image(props: any) {
       imageUrl,
       priceOriginal,
       priceDiscount,
+      index,
     } = p;
     return (
       <S.ProductClickIcon
@@ -85,7 +86,7 @@ function Image(props: any) {
           src="//cdn.ggumim.co.kr/storage/20211029145330GwwumnWNSs.png"
           alt={productName}
           onClick={() => {
-            ToggleTag(productId);
+            onClick(productId, index);
           }}
         />
         {pointX > 250 ? (
@@ -171,15 +172,18 @@ function Image(props: any) {
     <S.ImageBox>
       <S.Picture src={api.imageUrl} />
       {productList.map(
-        (product: {
-          productId: number;
-          pointX: number;
-          pointY: number;
-          productName: string;
-          imageUrl: string;
-          priceDiscount: number;
-          priceOriginal: number;
-        }) => {
+        (
+          product: {
+            productId: number;
+            pointX: number;
+            pointY: number;
+            productName: string;
+            imageUrl: string;
+            priceDiscount: number;
+            priceOriginal: number;
+          },
+          index,
+        ) => {
           const {
             productId,
             pointX,
@@ -200,6 +204,7 @@ function Image(props: any) {
                 productName={productName}
                 priceDiscount={priceDiscount}
                 priceOriginal={priceOriginal}
+                index={index}
               />
             );
           } else {
@@ -214,7 +219,7 @@ function Image(props: any) {
                   src="//cdn.ggumim.co.kr/storage/20211029145238AlZrQ41xtg.png"
                   alt={productName}
                   onClick={() => {
-                    ToggleTag(productId);
+                    onClick(productId, index);
                   }}
                 />
               </S.ProductClickIcon>

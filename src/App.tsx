@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Image from './components/Image';
 import Carousel from './components/Carousel';
 import * as S from './styled';
@@ -6,6 +6,8 @@ import * as S from './styled';
 function App() {
   const [api, setApi] = useState<any>(null);
   const [state, setState] = useState<number | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   async function GetJsonData(address: string) {
     const data = await fetch(address, { mode: 'cors' })
       .then(function (response) {
@@ -24,6 +26,15 @@ function App() {
     }
   });
 
+  const onClick = (productId: number, index: number) => {
+    ToggleTag(productId);
+    if (scrollRef.current) {
+      const width = scrollRef.current.scrollWidth;
+      const x = ((index + 1) / api.productList.length) * width - width / 2;
+      scrollRef.current.scrollTo(x, 0);
+    }
+  };
+
   const ToggleTag = (key: number) => {
     if (key === state) {
       setState(null);
@@ -38,8 +49,13 @@ function App() {
 
   return (
     <S.App className="App">
-      <Image state={state} ToggleTag={ToggleTag} api={api} />
-      <Carousel api={api} state={state} ToggleTag={ToggleTag} />
+      <Image state={state} onClick={onClick} api={api} />
+      <Carousel
+        api={api}
+        state={state}
+        onClick={onClick}
+        scrollRef={scrollRef}
+      />
     </S.App>
   );
 }

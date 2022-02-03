@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/ggumin-task/static/css/main.93a0497a.css",
-    "main.js": "/ggumin-task/static/js/main.e5f8087d.js",
+    "main.js": "/ggumin-task/static/js/main.a0438346.js",
     "index.html": "/ggumin-task/index.html",
     "main.93a0497a.css.map": "/ggumin-task/static/css/main.93a0497a.css.map",
-    "main.e5f8087d.js.map": "/ggumin-task/static/js/main.e5f8087d.js.map"
+    "main.a0438346.js.map": "/ggumin-task/static/js/main.a0438346.js.map"
   },
   "entrypoints": [
     "static/css/main.93a0497a.css",
-    "static/js/main.e5f8087d.js"
+    "static/js/main.a0438346.js"
   ]
 }

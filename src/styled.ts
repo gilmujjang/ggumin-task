@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
 export const App = styled.div`
-  margin: auto;
-  margin-top: 8px;
+  margin: 24px auto;
   width: 800px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;

@@ -25,6 +25,14 @@ function App() {
     }
   });
 
+  const ToggleTag = (key: number) => {
+    if (key === state) {
+      setState(null);
+    } else {
+      setState(key);
+    }
+  };
+
   if (api === null) {
     return <div>로딩중</div>;
   }
@@ -33,8 +41,8 @@ function App() {
 
   return (
     <S.App className="App">
-      <Image state={state} setState={setState} api={api} />
-      <Carousel api={api} />
+      <Image state={state} ToggleTag={ToggleTag} api={api} />
+      <Carousel api={api} state={state} ToggleTag={ToggleTag} />
     </S.App>
   );
 }

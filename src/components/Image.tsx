@@ -9,11 +9,11 @@ function percentageMaker(originalPrice: number, discountPrice: number) {
   return (((originalPrice - discountPrice) * 100) / originalPrice).toFixed(0);
 }
 
-function useOutsideAlerter(ref: any, setState: any) {
+function useOutsideAlerter(ref: any, ToggleTag: any) {
   useEffect(() => {
     function handleClickOutside(event: any) {
       if (ref.current && !ref.current.contains(event.target)) {
-        setState(null);
+        ToggleTag(null);
       }
     }
 
@@ -21,7 +21,7 @@ function useOutsideAlerter(ref: any, setState: any) {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [ref, setState]);
+  }, [ref, ToggleTag]);
 }
 
 const ProductInformationBox = (props: any) => {
@@ -60,18 +60,9 @@ const ProductInformationBox = (props: any) => {
 };
 
 function Image(props: any) {
-  const { state, setState, api } = props;
+  const { state, ToggleTag, api } = props;
   const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef, setState);
-
-  const ToggleTag = (key: number) => {
-    console.log(key);
-    if (key === state) {
-      setState(null);
-    } else {
-      setState(key);
-    }
-  };
+  useOutsideAlerter(wrapperRef, ToggleTag);
 
   const onClickTooltip = (id: number) => {
     window.location.href = `https://www.ggumim.co.kr/furniture/view/${id}`;
@@ -89,7 +80,6 @@ function Image(props: any) {
       priceOriginal,
       priceDiscount,
     } = p;
-    console.log(p);
     return (
       <S.ProductClickIcon
         key={productId}

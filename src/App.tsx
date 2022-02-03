@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from './components/Image';
 import Carousel from './components/Carousel';
 import * as S from './styled';
@@ -19,7 +19,6 @@ function App() {
 
   useEffect(() => {
     if (api === null) {
-      console.log('api를 호출합니다');
       const address = 'https://cdn.ggumim.co.kr/test/image_product_link.json';
       GetJsonData(address);
     }
@@ -36,8 +35,6 @@ function App() {
   if (api === null) {
     return <div>로딩중</div>;
   }
-
-  console.log(api);
 
   return (
     <S.App className="App">

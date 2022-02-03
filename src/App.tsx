@@ -28,9 +28,10 @@ function App() {
 
   const onClick = (productId: number, index: number) => {
     ToggleTag(productId);
-    if (scrollRef.current) {
+    if (scrollRef.current && index) {
       const width = scrollRef.current.scrollWidth;
-      const x = ((index + 1) / api.productList.length) * width - width / 2;
+      const x: number =
+        ((index + 1) / api.productList.length) * width - width / 2;
       scrollRef.current.scrollTo({ left: x, top: 0, behavior: 'smooth' });
     }
   };

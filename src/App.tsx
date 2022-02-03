@@ -28,7 +28,7 @@ function App() {
 
   const onClick = (productId: number, index: number) => {
     ToggleTag(productId);
-    if (scrollRef.current && index) {
+    if (scrollRef.current && index !== undefined) {
       const width = scrollRef.current.scrollWidth;
       const x: number =
         ((index + 1) / api.productList.length) * width - width / 2;

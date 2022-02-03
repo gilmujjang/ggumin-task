@@ -31,7 +31,7 @@ function App() {
     if (scrollRef.current) {
       const width = scrollRef.current.scrollWidth;
       const x = ((index + 1) / api.productList.length) * width - width / 2;
-      scrollRef.current.scrollTo(x, 0);
+      scrollRef.current.scrollTo({ left: x, top: 0, behavior: 'smooth' });
     }
   };
 

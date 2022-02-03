@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { percentageMaker } from './utils';
 import * as S from './CarouselStyled';
 
 function Carousel(props: any) {
@@ -19,15 +20,31 @@ function Carousel(props: any) {
     <S.CarouselBox ref={scrollRef}>
       <S.SwiperWrapper>
         {productList.map(
-          (product: { productId: number; imageUrl: string }, index) => {
-            const { productId, imageUrl } = product;
+          (
+            product: {
+              productId: number;
+              imageUrl: string;
+              priceDiscount: number;
+              priceOriginal: number;
+            },
+            index,
+          ) => {
+            const { productId, imageUrl, priceDiscount, priceOriginal } =
+              product;
             if (productId === state) {
               return (
                 <S.CheckedProductImageBox
                   key={productId}
                   onClick={() => onClick(productId, index)}
                 >
-                  <S.ProductImage productUrl={imageUrl} />
+                  <S.ProductImage productUrl={imageUrl}>
+                    {priceOriginal !== priceDiscount && (
+                      <S.DiscountRate>
+                        {percentageMaker(priceOriginal, priceDiscount)}
+                        <span>%</span>
+                      </S.DiscountRate>
+                    )}
+                  </S.ProductImage>
                 </S.CheckedProductImageBox>
               );
             } else {

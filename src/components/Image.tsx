@@ -1,13 +1,6 @@
 import React, { useRef, useEffect } from 'react';
+import { numAddComma, percentageMaker } from './utils';
 import * as S from './ImageStyled';
-
-function numAddComma(num: number) {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
-
-function percentageMaker(originalPrice: number, discountPrice: number) {
-  return (((originalPrice - discountPrice) * 100) / originalPrice).toFixed(0);
-}
 
 function useOutsideAlerter(ref: any, ToggleTag: any) {
   useEffect(() => {

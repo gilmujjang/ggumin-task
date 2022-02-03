@@ -49,3 +49,21 @@ export const CheckedProductImageBox = styled(ProductImageBox)`
   padding: 2px;
   border-radius: 18px;
 `;
+
+export const DiscountRate = styled.div`
+  position: absolute;
+  top: 0;
+  right: 5px;
+  background-image: url(//cdn.ggumim.co.kr/storage/20211117191419RW6JS6bjRm.png);
+  width: 24px;
+  height: 28px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 25px;
+  color: white;
+  text-align: center;
+  padding-left: 1px;
+`;

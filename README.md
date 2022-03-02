@@ -6,7 +6,7 @@
 
 ## 🔗 배포
 
-https://gilmujjang.github.io/ggumin-task
+[집꾸미기 과제 배로 링크](https://gilmujjang.github.io/ggumin-task)
 
 <br>
 
